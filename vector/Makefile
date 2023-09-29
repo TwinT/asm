@@ -13,7 +13,7 @@ all: $(TARGET)
 	$(NASM) $(NASMFLAGS) $< -o $@
 
 $(TARGET): $(OBJS)
-	ld -o $@ $^
+	ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc -o $@ $^ 
 
 clean:
 	rm -f *.o
