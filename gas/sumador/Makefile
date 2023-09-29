@@ -3,7 +3,7 @@ CFLAGS= -std=c11 -Wall -Wextra -pedantic -O0 -g -Wno-unused-variable -Wno-unused
 
 all: sumador
 
-OBJS= main.o funcs_c.o
+OBJS= main.o funcs_c.o funcs_asm.o
 
 sumador: $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@
@@ -11,7 +11,10 @@ sumador: $(OBJS)
 main.o: main.c funcs.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-funcs.o: funcs.c funcs.h
+funcs_c.o: funcs_c.c funcs.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+funcs_asm.o: funcs_asm.s funcs.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
