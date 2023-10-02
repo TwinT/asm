@@ -21,6 +21,8 @@ _start:
 
     mov rdi, mensaje
     mov esi, eax
+    mov eax, 0 ; cantidad de argumentos float
+    
     call printf
     
     ; exit
