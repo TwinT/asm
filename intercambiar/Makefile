@@ -1,19 +1,20 @@
+CC=gcc
+CFLAGS= -std=c11 -no-pie -Wall -Wextra -pedantic -O0 -g -Wno-unused-variable -Wno-unused-parameter
 NASM:=nasm
 NASMFLAGS:=-Wall -f elf64 -g -Wall
 
-TARGET:=intercambiar
-
-SRCS:= intercambiar.asm
-
-OBJS=$(SRCS:.asm=.o)
+TARGET:=main
 
 all: $(TARGET)
 
-%.o: %.asm 
+intercambiar.o: intercambiar.asm 
 	$(NASM) $(NASMFLAGS) $< -o $@
 
-$(TARGET): $(OBJS)
-	ld -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc -o $@ $^ 
+main.o: main.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(TARGET): intercambiar.o main.o
+	gcc $(CFLAGS) $^  -o $@  
 
 clean:
 	rm -f *.o

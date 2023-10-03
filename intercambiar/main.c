@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-
+#include "intercambiar.h"
 
 int main() {
     char cadena[] = "Orga del computador";
