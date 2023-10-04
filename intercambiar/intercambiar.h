@@ -1,6 +1,6 @@
-#ifndef INTERCAMBIAR_H
-#define INTERCAMBIAR_H
+#ifndef INTERCAMBIAR
+#define INTERCAMBIAR
 
 void intercambiar(char*);
 
-#endif 
+#endif /* INTERCAMBIAR */
