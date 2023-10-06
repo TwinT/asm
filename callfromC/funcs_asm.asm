@@ -13,4 +13,4 @@ sumar_asm:
         add rdx, 4
         sub ecx, 1
         jnz .ciclo
-
+    ret
