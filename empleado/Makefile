@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -std=c11 -no-pie -Wall -Wextra -pedantic -O0 -g -Wno-unused-variable -Wno-unused-parameter
+CFLAGS= -std=c11 -no-pie -Wall -Wextra -pedantic -O0 -g -Wno-unused-variable -Wno-unused-parameter -znoexecstack
 NASM:=nasm
 NASMFLAGS:=-Wall -f elf64 -g -Wall
 

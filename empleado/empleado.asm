@@ -1,46 +1,58 @@
-section .text
-
 extern strlen
 extern malloc
 extern strcpy
 
-global empleado
+%define SIZE_OF_EMPLEADO 16
+%define OFFSET_NOMBRE 0
+%define OFFSET_EDAD 8
 
-;struct Empleado* empleado(const char *nombre, int edad) 
-empleado:
-        push    r13
-        mov     r13d, esi ; guardo edad
+global new_empleado
 
-        push    r12 
-        mov     r12, rdi    ; guardo *nombre en rbp
+section .text
 
-        mov     edi, 16    
+;struct Empleado* new_empleado(const char *nombre, int edad) 
+new_empleado:
+        ; armo stack frame
+        push rbp
+        mov rbp, rsp
+        ; pusheo no volátiles que voy a usar
+        push r12 
+        push r13
+        push rbx
+        sub  rsp, 8 ;alineo la pila a 16 bytes
 
-        push    rbx
+        mov  r13d, esi   ; guardo edad
+        mov  r12, rdi    ; guardo *nombre en r12
+        mov  rdi, SIZE_OF_EMPLEADO    
 
-        call    malloc      ; rax tiene puntero a struct
+        call malloc      ; rax tiene puntero a struct
 
-        mov     rdi, r12
-        mov     rbx, rax    ; rbx mantiene el puntero a struct
-        call    strlen      ; rax tiene long nombr
+        mov  rdi, r12
+        mov  rbx, rax    ; rbx mantiene el puntero a struct
+        call strlen      ; size_t strlen (const char * str);
+        
+        ; rax tiene largo del nombre
 
-        inc     rax
-        mov     rdi, rax ; +1 por el byte nulo
-        call    malloc      ; rax tiene puntero a nombre del struct
+        inc  rax
+        mov  rdi, rax    ; +1 por el byte nulo
+        call malloc      ; rax tiene puntero a nombre del struct
 
         
-        mov     [rbx], rax
+        mov  [rbx + OFFSET_NOMBRE], rax  ; copio el puntero al nombre en el struct 
 
-        mov     rsi, r12
-        mov     rdi, rax
-        call    strcpy
+        ; copio el nombre
+        mov  rsi, r12    ; puntero src
+        mov  rdi, rax    ; puntero dest
+        call strcpy      ; char *strcpy(char *dest, const char *src)
 
-        mov     [rbx+8], r13d
-        mov     rax, rbx
+        mov  [rbx + OFFSET_EDAD], r13d
+        mov  rax, rbx
 
-        pop     rbx
-        pop     r12
-        pop     r13
+        add  rsp, 8
+        pop  rbx
+        pop  r13
+        pop  r12
+        pop  rbp
         ret
 
 

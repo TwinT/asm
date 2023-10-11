@@ -4,11 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Empleado {
-    char *nombre;
-    int edad;
-};
-
 // struct Empleado* empleado(const char *nombre, int edad) {
 //     struct Empleado *nuevoEmpleado = (struct Empleado *)malloc(sizeof(struct Empleado));
 
@@ -28,7 +23,7 @@ void liberarEmpleado(struct Empleado *empleado) {
 }
 
 int main() {
-    struct Empleado *nuevoEmpleado = empleado("Meli", 30);
+    struct Empleado *nuevoEmpleado = new_empleado("Meli", 30);
     printf("Nombre: %s\n", nuevoEmpleado->nombre);
     printf("Edad: %d\n", nuevoEmpleado->edad);
 
