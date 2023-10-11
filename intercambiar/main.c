@@ -2,8 +2,12 @@
 #include <string.h>
 #include "intercambiar.h"
 
+
+
+
+
 int main() {
-    char cadena[] = "Orga";
+    char cadena[] = "Orga del compu";
 
     intercambiar(cadena);
 
@@ -23,17 +27,18 @@ int calcularLongitud_str(char cadena[]) {
     return longitud;
 }
 
-void intercambiar_c(char str[]) {
-    int longitud = strlen(str);
+
+void intercambiar_aux(char cadena[]){
+    int longitud = strlen(cadena);
     int ini = 0;
     int fin = longitud - 1;
-    char aux;
 
     while (ini < fin) {
-        aux = str[ini];
-        str[ini] = str[fin];
-        str[fin] = aux;
-        
+        char aux1 = cadena[ini];
+        char aux2 = cadena[fin];
+        cadena[ini] = aux2;
+        cadena[fin] = aux1;
+
         ini++;
         fin--;
     }
